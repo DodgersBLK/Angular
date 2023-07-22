@@ -1,0 +1,30 @@
+<app-listado-generico objetos="pedidos">
+  <ng-container vacio>
+    <div>No hay pedidos a mostrar</div>
+  </ng-container>
+  <ng-container contenido>
+  <div class="table-responsive">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th>ID Pedido</th>
+          <th>Fecha Limite Entrega</th>
+          <th>Estatus</th>
+          <th>Orden de Suministro</th>
+        </tr>
+        </thead>
+        <tbody>
+          
+        <tr *ngFor="let pedido of pedidos">
+          <td><a href="pages/examples/invoice.html">{{pedido.id_Pedidos}}</a></td>
+          <td>{{pedido.fechaLimiteEntrega | date:"dd-MM-yyyy"}}</td>
+          <td><span class="badge badge-warning" *ngIf="pedido.estatus === 'P'">{{pedido.estatus}}</span><span class="badge badge-success" *ngIf="pedido.estatus != 'P'">{{pedido.estatus}}</span></td>
+          <td>
+            <div class="sparkbar" data-color="#00a65a" data-height="20">{{pedido.ordenSuministro}}</div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  </app-listado-generico>

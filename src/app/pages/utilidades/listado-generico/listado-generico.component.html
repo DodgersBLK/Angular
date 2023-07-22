@@ -1,0 +1,14 @@
+<div *ngIf="!objetos" style="align-items: center;">
+  <img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700" width="455px" />
+</div>
+<div *ngIf="objetos?.length <= 0">
+  <span #vacio><ng-content select="[vacio]"></ng-content></span>
+  <span *ngIf="!vacio.innerHTML.trim()">
+    <p>No hay nada para mostrar</p>
+  </span>
+  
+</div>
+<ng-container *ngIf="objetos && objetos.length > 0">
+  
+<ng-content select ="[contenido]"></ng-content>
+  </ng-container>

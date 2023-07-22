@@ -1,0 +1,59 @@
+<div class="row">
+<div class="col-lg-6">
+  <div class="card card-primary card-outline ">
+      <div class="card-header border-transparent">
+        <h3 class="card-title">Todos Pedidos</h3>
+  
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body p-0">
+        <app-listado-pedidos [pedidos]="pedidos"></app-listado-pedidos>
+        <mat-paginator [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons [length]="cantidadTotalRegistros" [pageSize]="cantidadRegistrosAMostrar" (page)="actualizarPaginacion($event)">
+
+        </mat-paginator>
+        <!-- /.table-responsive -->
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <a routerLink="/pedidos/addpedido" class="btn btn-sm btn-info float-left">Nuevo Pedido</a>
+        <a href="/pedidos/listadopedidos" class="btn btn-sm btn-secondary float-right">Ver Pedidos</a>
+      </div>
+      <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card card-warning">
+        <div class="card-header border-transparent">
+          <h3 class="card-title">Pedidos Pendientes <span class="badge bg-danger">{{cantidadTotalRegistrosPendientes}}</span></h3>
+    
+          <div class="card-tools">
+            
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <app-listado-pedidos [pedidos]="pedidosPendientes"></app-listado-pedidos>
+          <mat-paginator [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons [length]="cantidadTotalRegistrosPendientes" [pageSize]="cantidadRegistrosAMostrarPendientes" (page)="actualizarPaginacionPendientes($event)">
+  
+          </mat-paginator>
+          <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+          <a routerLink="/pedidos/addpedido" class="btn btn-sm btn-info float-left">Cerrar Pedido</a>
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>

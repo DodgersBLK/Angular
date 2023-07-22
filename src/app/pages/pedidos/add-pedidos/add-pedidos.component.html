@@ -1,0 +1,110 @@
+<app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+<form [formGroup]="form">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header border-transparent">
+        <h3 class="card-title">Propuesta </h3>
+
+        <div class="card-tools">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-90" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+            </button>
+            <div class="dropdown-menu" role="menu">
+              <button class="dropdown-item" (click)="toastConfirmNuevaPropuesta('¿Esta seguro de querer generar nueva propuesta?, se borrara la actual y el sistema calculara una nueva.','Atención')">Nueva Propuesta</button>
+            
+            </div>
+            </div>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div *ngIf="!propuesta" style="align-items: center;">
+          <img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700" width="455px" />
+        </div>
+        <div *ngIf="propuesta?.length === 0">
+          <button class="btn btn-primary" (click)="GenerarPropuesta()">Generar Propuesta</button>
+          
+        </div>
+       
+        <table #table mat-table [dataSource]="propuesta" class="table m-0" *ngIf="propuesta">
+          <ng-container matColumnDef="clave">
+            <th mat-header-cell *matHeaderCellDef>Clave</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.clave}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="medicamento">
+            <th mat-header-cell *matHeaderCellDef>Medicamento</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.medicamento}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="existAlmacen">
+            <th mat-header-cell *matHeaderCellDef>Existencia Almacen</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.existenciaS_ALMACEN}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="existFarm">
+            <th mat-header-cell *matHeaderCellDef>Existencia Farmacia</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.existenciaS_FARMACIA}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="contrato">
+            <th mat-header-cell *matHeaderCellDef>Contrato</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.numpedidocontrato}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="cantidadPedir">
+            <th mat-header-cell *matHeaderCellDef>Cantidad a Pedir</th>
+            <td mat-cell *matCellDef="let element" >
+              <mat-form-field appereance="outline"style=" max-width: 100px;">
+                <input matInput type="number" [value]="element.cantidaD_PEDIR" (change)="guardar(element, $event.target.value)"/>
+                
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="remanente">
+            <th mat-header-cell *matHeaderCellDef>Remanente</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.remanente}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+              
+              <button class="btn btn-sm btn-danger" 
+              (click)="toastConfirm('question','¿Esta seguro que desea borrar el registro ', 'Confirmación', element)">borrar</button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnasAMostrar"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasAMostrar"></tr> 
+        </table>
+        <mat-paginator [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons [length]="cantidadTotalRegistros" [pageSize]="cantidadRegistrosAMostrar" (page)="actualizarPaginacion($event)">
+  
+        </mat-paginator>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <a routerLink="/pedidos" class="btn btn-sm btn-info float-left"
+          >Cancelar</a
+        >
+        <button class="btn btn-sm btn-info float-right">Realizar Pedido</button>
+        
+      </div>
+      <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+  </div>
+</form>
